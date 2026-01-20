@@ -1,0 +1,56 @@
+1. O Fluxo da Aplicação (Simples e Direto)
+O app terá apenas duas telas principais. Nada de menus complicados.
+
+Tela 1: O Planejador Inteligente (Input Natural)
+
+O usuário digita ou fala: "Churrasco sábado às 13h para 10 homens e 5 mulheres. A galera bebe cerveja forte e vai durar umas 6 horas."
+
+A Mágica (Backend): A IA interpreta o contexto. "6 horas" aumenta o consumo. "Homens e mulheres" ajusta a média de gramas de carne.
+
+O Output: Lista de compras separada por categorias (Carnes, Bebidas, Carvão, Acompanhamentos) já com quantidades estimadas.
+
+Tela 2: O "Xerife da Conta" (O Diferencial)
+
+Ação: O usuário tira foto da notinha do mercado (cupom fiscal).
+
+Processamento: A IA (Vision) lê os itens e preços.
+
+Separação: O app pergunta: "Quem bebeu álcool?" Você seleciona os nomes.
+
+Resultado: Ele gera o valor exato para cada um. (Quem comeu só pão de alho não paga a Heineken).
+
+Botão Final: "Gerar Cobrança no WhatsApp" (já manda o texto com a chave Pix).
+
+2. O Toque de "Loucura" (Viralização) 🌶️
+Para deixar o app divertido e com a sua cara, vamos adicionar o "Modo Sincerão" nas mensagens de cobrança:
+
+Se a pessoa demorar a pagar, o usuário clica num botão "Cobrar Caloteiro".
+
+A IA gera uma mensagem engraçada baseada no que a pessoa consumiu:
+
+"Fala Pedro! A Picanha já foi digerida e virou saudade, mas o Pix ainda não caiu. Bora resolver esses R$ 85,00 antes que eu conte pra galera que você pediu carne bem passada?"
+
+3. Tech Stack para Vibe Coding (Replit/Antigravity)
+Para você pedir para a IA criar, use estas especificações. É a rota mais rápida:
+
+Frontend: Streamlit (Python). É a forma mais rápida de criar apps de dados sem saber HTML/CSS. Fica bonito e funcional em minutos.
+
+Backend: Python puro.
+
+Inteligência (Cérebro): OpenAI API (GPT-4o).
+
+Use o GPT-4o para interpretar o pedido do churrasco (texto).
+
+Use o GPT-4o Vision para ler a foto da nota fiscal (isso substitui OCR complexo e funciona muito melhor).
+
+Integração: Bibliotecas Pillow (para imagem) e qrcode (para gerar QR Code do Pix se quiser, ou só texto).
+
+4. Como Monetizar (Futuro)
+Freemium: Calcular o churrasco é grátis. Usar a IA para ler a nota fiscal e dividir a conta custa R$ 2,90 por evento (ou um plano mensal barato).
+
+Afiliados: Link direto para comprar a carne ou a cerveja em parceiros (Zé Delivery, açougues online).
+
+Próximo Passo 👊
+Quer que eu escreva agora o Prompt Mestre (o comando perfeito) para você colar no Replit ou na sua ferramenta de IA, para ela gerar a estrutura completa desse código já com a interface em Streamlit?
+
+(É só copiar, colar e ver a mágica acontecer).

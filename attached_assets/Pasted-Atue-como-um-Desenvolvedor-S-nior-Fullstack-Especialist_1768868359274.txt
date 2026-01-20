@@ -1,0 +1,54 @@
+Atue como um Desenvolvedor Sênior Fullstack Especialista em Python e Micro SaaS.
+
+O seu objetivo é construir o MVP do "Churrasco.ai", uma aplicação web mobile-first focada em organizar churrascos de forma divertida e sem burocracia.
+
+--- 
+STACK TÉCNICA (Obrigatória):
+- Frontend/Backend: Streamlit (Python) - pela velocidade e simplicidade.
+- AI/Inteligência: OpenAI API (gpt-4o) para processamento de texto e gpt-4o (Vision) para leitura de imagens.
+- Manipulação de Imagem: Pillow (PIL).
+- Gestão de Variáveis: st.secrets (para a chave da API).
+
+---
+DESIGN SYSTEM & UI (Vibe):
+- Estilo: Moderno, limpo, uso de emojis para deixar leve.
+- Layout: Mobile-first (use colunas e containers expansíveis).
+- Tom de Voz da Interface: Engraçado, direto, estilo "boleiro" e informal (Brasileiro). Nada corporativo.
+
+---
+FUNCIONALIDADES DO MVP (Escopo Inicial):
+
+1. Configuração Inicial:
+   - Configurar `st.set_page_config` com título "Churrasco.ai 🥩" e layout centralizado.
+   - Sidebar para inserir a OpenAI API Key (essencial para eu testar).
+
+2. Navegação (Tabs ou Menu Lateral):
+   - Tab 1: "Planejar o Rolê" (Calculadora via NLP)
+   - Tab 2: "Rachar a Conta" (Scanner de Nota Fiscal)
+
+3. Detalhes da Tab 1 (Planejador):
+   - Input: Um `st.text_area` grande onde o usuário digita como será o churrasco (Ex: "10 amigos, sábado a tarde, bebem muito").
+   - Ação: Botão "Calcular com IA".
+   - Processamento: Enviar prompt para o GPT-4o retornar um JSON com a lista sugerida (Carnes, Bebidas, Carvão).
+   - Output: Exibir a lista em um `st.dataframe` ou lista formatada bonita (checkboxes).
+
+4. Detalhes da Tab 2 (Rachar a Conta - O Diferencial):
+   - Input: `st.file_uploader` para foto da nota fiscal.
+   - Processamento: Usar GPT-4o Vision para extrair itens e preços da imagem.
+   - Interatividade: 
+     - Mostrar os itens lidos.
+     - Permitir selecionar quem participou (input de nomes).
+     - Checkbox ao lado de cada nome: "Bebeu Álcool?".
+   - Cálculo: Lógica matemática para separar (Total Geral / Todos) + (Total Álcool / Só quem bebe).
+   - Output Final: Gerar um texto pronto para copiar e colar no WhatsApp com chave Pix (fictícia por enquanto) e uma piada gerada pela IA cobrando o valor.
+
+---
+PRD DE REFERÊNCIA (Resumo):
+O problema é a burocracia do churrasco. O objetivo é automatizar a lista de compras e a divisão justa da conta (quem não bebe não paga cerveja). O público odeia planilhas.
+
+---
+INSTRUÇÕES DE EXECUÇÃO:
+1. Crie a estrutura de arquivos (main.py, requirements.txt, utils.py).
+2. Escreva o código completo, lidando com erros (try/except) caso a API falhe.
+3. Não use banco de dados por enquanto, tudo em memória de sessão (`st.session_state`).
+4. Comece agora.
