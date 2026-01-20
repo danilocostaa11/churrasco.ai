@@ -84,7 +84,7 @@ Retorne APENAS um JSON válido neste formato (sem markdown, só o JSON puro):
         max_tokens=2000
     )
     
-    content = response.choices[0].message.content
+    content = response.choices[0].message.content or "{}"
     return json.loads(content)
 
 
@@ -134,7 +134,7 @@ Se a imagem não for uma nota fiscal, retorne: {"erro": "Não consegui identific
         max_tokens=2000
     )
     
-    content = response.choices[0].message.content
+    content = response.choices[0].message.content or "{}"
     return json.loads(content)
 
 
@@ -177,7 +177,7 @@ def calcular_divisao(itens: list, participantes: list, quem_bebeu: list) -> dict
     retry=retry_if_exception(is_rate_limit_error),
     reraise=True
 )
-def gerar_cobranca_whatsapp(nome: str, valor: float, itens_consumidos: list = None, pix_key: str = "churrasco@pix.com") -> str:
+def gerar_cobranca_whatsapp(nome: str, valor: float, itens_consumidos: list | None = None, pix_key: str = "churrasco@pix.com") -> str:
     itens_texto = ""
     if itens_consumidos:
         itens_texto = f"Itens do rolê: {', '.join(itens_consumidos[:5])}"
@@ -209,7 +209,7 @@ Retorne APENAS a mensagem, sem aspas ou formatação extra."""
         max_tokens=300
     )
     
-    return response.choices[0].message.content
+    return response.choices[0].message.content or ""
 
 
 @retry(
@@ -247,4 +247,4 @@ Retorne APENAS a mensagem, sem aspas."""
         max_tokens=400
     )
     
-    return response.choices[0].message.content
+    return response.choices[0].message.content or ""
