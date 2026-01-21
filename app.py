@@ -15,6 +15,12 @@ st.set_page_config(
 )
 
 # ============================================
+# PWA SETUP - MOBILE READY
+# ============================================
+from pwa_utils import setup_pwa
+setup_pwa()
+
+# ============================================
 # CSS DARK PREMIUM - STEAKHOUSE MODERNA
 # ============================================
 st.markdown("""
@@ -260,39 +266,50 @@ with st.sidebar:
     st.markdown("---")
     
     # API Key Configuration
-    if 'use_custom_key' not in st.session_state:
-        st.session_state.use_custom_key = False
-    if 'custom_api_key' not in st.session_state:
-        st.session_state.custom_api_key = ""
+    # Verifica se existe chave no ambiente
+    has_env_key = bool(os.environ.get("OPENAI_API_KEY"))
     
-    use_custom = st.checkbox(
-        "🔑 Usar minha própria chave OpenAI",
-        value=st.session_state.use_custom_key,
-        help="Marque se quiser usar sua própria API key da OpenAI"
-    )
-    st.session_state.use_custom_key = use_custom
-    
-    if use_custom:
+    if has_env_key:
+        st.success("✅ IA Ativada")
+        
+        # Opção para trocar chave APENAS se o usuário quiser explicitamente
+        with st.expander("⚙️ Configurações Avançadas"):
+            use_custom = st.checkbox(
+                "Usar chave personalizada",
+                value=st.session_state.get('use_custom_key', False),
+                help="Marque para substituir a chave padrão do sistema"
+            )
+            st.session_state.use_custom_key = use_custom
+            
+            if use_custom:
+                api_key = st.text_input(
+                    "Nova API Key",
+                    type="password",
+                    value=st.session_state.get('custom_api_key', ""),
+                    placeholder="sk-...",
+                    help="Sua chave pessoal da OpenAI"
+                )
+                st.session_state.custom_api_key = api_key
+                if api_key:
+                    os.environ["CUSTOM_OPENAI_API_KEY"] = api_key
+    else:
+        # Se NÃO tem chave no ambiente, mostra o campo obrigatório em destaque
+        st.warning("⚠️ IA não configurada")
+        st.markdown("<small>Para usar a IA, adicione sua chave abaixo:</small>", unsafe_allow_html=True)
+        
         api_key = st.text_input(
             "OpenAI API Key",
             type="password",
-            value=st.session_state.custom_api_key,
+            value=st.session_state.get('custom_api_key', ""),
             placeholder="sk-...",
             help="Cole sua chave da OpenAI aqui"
         )
         st.session_state.custom_api_key = api_key
+        st.session_state.use_custom_key = True
         
         if api_key:
             os.environ["CUSTOM_OPENAI_API_KEY"] = api_key
-            st.success("✅ Chave configurada!")
-        else:
-            st.warning("⚠️ Insira sua API key")
-    else:
-        # Check for environment variable
-        if os.environ.get("OPENAI_API_KEY"):
-            st.success("✅ Usando chave do sistema")
-        else:
-            st.info("🤖 Configure sua API key para usar a IA")
+            st.success("✅ Chave salva!")
     
     st.markdown("---")
     

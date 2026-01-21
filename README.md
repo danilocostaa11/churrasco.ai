@@ -83,47 +83,42 @@ Acesse: http://localhost:8501
 
 ---
 
-## 🌐 Deploy
+## 🌐 Deploy (Colocar no Ar)
 
-### Streamlit Cloud (Recomendado)
+O app é feito em Streamlit, que requer conexões ativas (WebSockets), por isso **não funciona na Vercel** (que é serverless). Use uma das opções abaixo:
 
-1. Fork este repositório
-2. Acesse [share.streamlit.io](https://share.streamlit.io)
-3. Conecte seu GitHub
-4. Selecione o repositório e branch `main`
-5. Configure o secret `OPENAI_API_KEY` em Settings > Secrets
-6. Deploy!
+### ☁️ Opção 1: Streamlit Cloud (Recomendado/Gratuito)
+A "casa oficial" do Streamlit. Rápido e fácil.
 
-### Railway
+1. Suba este código para o **GitHub**.
+2. Acesse [share.streamlit.io](https://share.streamlit.io/).
+3. Clique **"New App"**, selecione o repositório e o arquivo `app.py`.
+4. Em **Advanced Settings**, adicione nas Environment Variables (Secrets):
+   ```
+   OPENAI_API_KEY = "sk-..."
+   ```
+5. Clique **Deploy**!
 
-```bash
-# Instale Railway CLI
-npm install -g @railway/cli
+### 🚂 Opção 2: Railway
+Ideal se quiser crescer. O projeto já tem `railway.toml`.
 
-# Login e deploy
-railway login
-railway init
-railway up
-```
-
-Configure a variável `OPENAI_API_KEY` no dashboard do Railway.
-
-### Docker
-
-```dockerfile
-FROM python:3.11-slim
-
-WORKDIR /app
-COPY requirements.txt .
-RUN pip install -r requirements.txt
-
-COPY . .
-EXPOSE 8501
-
-CMD ["streamlit", "run", "app.py", "--server.port=8501"]
-```
+1. Instale a CLI ou conecte seu GitHub no site da Railway.
+2. O deploy será automático.
+3. Nas configurações, adicione a variável `OPENAI_API_KEY`.
 
 ---
+
+## 📱 PWA (App Mobile)
+
+Este projeto é um **Progressive Web App (PWA)**! Isso significa que:
+1. Funciona como site no Desktop.
+2. Pode ser **instalado no celular** (Android/iOS).
+3. Abre em **tela cheia**, parecendo um app nativo.
+
+**Como instalar:**
+- **Android (Chrome):** Menu > "Adicionar à tela inicial" (ou Install App).
+- **iOS (Safari):** Botão Compartilhar > "Adicionar à Tela de Início".
+
 
 ## ⚙️ Configuração
 
