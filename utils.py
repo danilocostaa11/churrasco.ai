@@ -222,37 +222,62 @@ def calcular_divisao(itens: list, participantes: list, quem_bebeu: list) -> dict
     retry=retry_if_exception(is_rate_limit_error),
     reraise=True
 )
-def gerar_cobranca_whatsapp(nome: str, valor: float, itens_consumidos: list | None = None, pix_key: str = "churrasco@pix.com") -> str:
-    """Gera mensagem amigável de cobrança."""
+def gerar_cobranca_whatsapp(nome: str, valor: float, itens_consumidos: list | None = None, pix_key: str = "churrasco@pix.com", bebeu: bool = False) -> str:
+    """Gera mensagem amigável de cobrança com personalidade Sincera."""
     itens_texto = ""
     if itens_consumidos:
         itens_texto = f"Itens do rolê: {', '.join(itens_consumidos[:5])}"
     
-    prompt = f"""Gere uma mensagem engraçada de cobrança no estilo brasileiro, informal, de um amigo cobrando outro depois de um churrasco.
+    comportamento_bebida = "Essa pessoa BEBEU álcool (provável ressaca hoje)." if bebeu else "Essa pessoa NÃO bebeu álcool (só prejuízo na comida)."
 
-Nome da pessoa: {nome}
-Valor a pagar: R$ {valor:.2f}
+    prompt = f"""Gere uma mensagem de cobrança para:
+Nome: {nome}
+Valor: R$ {valor:.2f}
+Status: {comportamento_bebida}
 {itens_texto}
 Chave Pix: {pix_key}
 
-A mensagem deve:
-- Ser engraçada e amigável (estilo "boleiro")
-- Mencionar o valor exato
-- Incluir a chave Pix
-- Usar emojis
-- Não ser ofensiva
-- Ter no máximo 3-4 linhas
+Siga RIGOROSAMENTE sua personalidade de Churrasqueiro Sincerão."""
 
-Retorne APENAS a mensagem, sem aspas ou formatação extra."""
+    system_prompt = """Você é o 'Churrasqueiro Sincerão'. Sua missão é cobrar os amigos do churrasco no WhatsApp.
+
+PERSONALIDADE:
+Brasileiro, engraçado, usa gírias (tipo "meu consagrado", "chefia", "campeão"), levemente irônico, mas amigo.
+
+REGRAS DE CLASSIFICAÇÃO:
+1. Se a pessoa BEBEU:
+   - Faça piadas sobre a ressaca brava de hoje.
+   - Diga que ela bebeu "como se não houvesse amanhã".
+   - Ameaçe (zoeira) servir cerveja quente ou no copo de requeijão na próxima se não pagar.
+
+2. Se a pessoa NÃO BEBEU:
+   - Faça piadas sobre o prejuízo que ela deu na picanha/carne.
+   - Brinque que "comeu por três" ou que estava "com a lombriga solta".
+   - Diga que ser sóbrio custa caro também.
+
+OBRIGATÓRIO NA MENSAGEM:
+- O valor exato (R$).
+- A Chave Pix.
+- Emojis divertidos.
+- Máximo de 4-5 linhas.
+
+Exemplo (Bebeu):
+"Fala Betão, meu consagrado! 🍺 Ontem tu bebeu como se não houvesse amanhã, mas o amanhã chegou e a conta também! O prejuízo da sua alegria ficou em R$ 85,00. Faz esse Pix cair logo senão na próxima tua cerveja vem quente! 🤡
+💸 Pix: 1199999-9999"
+
+Exemplo (Não Bebeu):
+"Grande Ana! 🥩 Mandou bem na picanha ontem hein, prejuízo puro! Como tu não bebeu, sobrou espaço pra carne né? A conta desse banquete ficou em R$ 50,00. Manda o Pix pra garantir a vaga no próximo! 😉
+💸 Pix: nomedopix@email.com"
+"""
 
     client = get_openai_client()
     response = client.chat.completions.create(
         model="gpt-4o",
         messages=[
-            {"role": "system", "content": "Você é um amigo brasileiro engraçado cobrando a galera do churrasco."},
+            {"role": "system", "content": system_prompt},
             {"role": "user", "content": prompt}
         ],
-        max_tokens=300
+        max_tokens=400
     )
     
     return response.choices[0].message.content or ""

@@ -693,11 +693,11 @@ with tab2:
                     if st.button("📩 Cobrança Normal", use_container_width=True):
                         with st.spinner("Gerando mensagem..."):
                             try:
-                                from utils import gerar_cobranca_whatsapp
                                 msg = gerar_cobranca_whatsapp(
                                     pessoa_cobrar,
                                     div['divisao'][pessoa_cobrar],
-                                    pix_key=pix_cobranca
+                                    pix_key=pix_cobranca,
+                                    bebeu=(pessoa_cobrar in quem_bebeu)
                                 )
                                 st.session_state.mensagens_cobranca[pessoa_cobrar] = msg
                             except Exception as e:
