@@ -10,379 +10,215 @@ from datetime import datetime
 st.set_page_config(
     page_title="Churrasco.ai 🥩",
     page_icon="🥩",
-    layout="wide",
-    initial_sidebar_state="expanded"
+    layout="centered",
+    initial_sidebar_state="collapsed"
 )
 
 # ============================================
-# CSS PREMIUM - DESIGN MODERNO
+# CSS VIBE CODING - DESIGN DIVERTIDO
 # ============================================
 st.markdown("""
 <style>
-    /* Reset e Base */
+    /* Importando Fontes Divertidas */
+    @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;600&family=Nunito:wght@400;700&display=swap');
+
+    /* Reset e Fundo */
     .stApp {
-        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+        background: linear-gradient(-45deg, #FF512F, #DD2476, #FF9966);
+        background-size: 400% 400%;
+        animation: gradientBG 15s ease infinite;
+        font-family: 'Nunito', sans-serif;
     }
     
-    /* Header Principal */
+    @keyframes gradientBG {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+    
+    /* Títulos e Headers */
+    h1, h2, h3, h4, .main-title, .categoria-header {
+        font-family: 'Fredoka', sans-serif !important;
+    }
+    
+    /* Header Principal Flutuante */
     .main-header {
         text-align: center;
-        padding: 2rem 0;
-        background: linear-gradient(135deg, rgba(255,107,53,0.1) 0%, rgba(255,154,0,0.1) 100%);
-        border-radius: 20px;
+        padding: 2rem;
+        background: rgba(255, 255, 255, 0.25);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        backdrop-filter: blur(8.5px);
+        -webkit-backdrop-filter: blur(8.5px);
+        border-radius: 30px;
         margin-bottom: 2rem;
-        border: 1px solid rgba(255,107,53,0.2);
-        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        transform: rotate(-1deg);
+        transition: transform 0.3s ease;
+    }
+    
+    .main-header:hover {
+        transform: rotate(1deg) scale(1.02);
     }
     
     .main-title {
-        font-size: 3.5rem;
-        font-weight: 800;
-        background: linear-gradient(135deg, #ff6b35 0%, #ff9a00 50%, #ffcd00 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        margin-bottom: 0.5rem;
-        text-shadow: 0 0 30px rgba(255,107,53,0.3);
+        font-size: 3.8rem;
+        color: #fff;
+        text-shadow: 4px 4px 0px #FF512F;
+        margin-bottom: 0;
     }
     
     .subtitle {
-        color: #a0a0a0;
-        font-size: 1.2rem;
-        font-weight: 300;
+        color: #fff;
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin-top: -10px;
+        text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
     }
     
-    /* Cards Premium */
+    /* Cards de Vidro (Glassmorphism) */
     .premium-card {
-        background: linear-gradient(145deg, rgba(30,30,50,0.9) 0%, rgba(20,20,40,0.95) 100%);
-        border: 1px solid rgba(255,255,255,0.1);
-        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 20px;
         padding: 1.5rem;
         margin: 1rem 0;
-        box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-        backdrop-filter: blur(10px);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        border-bottom: 5px solid #eaeaea;
+        color: #333;
+        transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     }
     
     .premium-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 12px 40px rgba(255,107,53,0.2);
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.2);
     }
     
-    /* Categoria Headers */
+    /* Categorias Coloridas */
     .categoria-header {
-        background: linear-gradient(90deg, #ff6b35 0%, #ff9a00 100%);
-        color: white;
-        padding: 12px 20px;
-        border-radius: 12px;
+        background: #fff;
+        color: #FF512F;
+        padding: 10px 20px;
+        border-radius: 50px;
         margin: 1.5rem 0 1rem 0;
         font-weight: 600;
-        font-size: 1.1rem;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        box-shadow: 0 4px 15px rgba(255,107,53,0.3);
+        font-size: 1.3rem;
+        display: inline-block;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        transform: rotate(-2deg);
     }
     
-    .categoria-header-blue {
-        background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-    }
-    
-    .categoria-header-green {
-        background: linear-gradient(90deg, #11998e 0%, #38ef7d 100%);
-    }
-    
-    /* Item Cards */
+    /* Item List */
     .item-card {
-        background: rgba(255,255,255,0.05);
-        padding: 12px 16px;
-        border-radius: 10px;
+        background: white;
+        padding: 12px 20px;
+        border-radius: 15px;
         margin: 8px 0;
-        border-left: 4px solid #ff6b35;
         display: flex;
         justify-content: space-between;
         align-items: center;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        border: 2px solid transparent;
         transition: all 0.2s ease;
     }
     
     .item-card:hover {
-        background: rgba(255,255,255,0.08);
-        border-left-color: #ff9a00;
+        border-color: #FF512F;
+        transform: scale(1.02);
     }
     
-    /* Total Card Premium */
+    /* Total Card Fun */
     .total-card {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f64f59 100%);
+        background: linear-gradient(135deg, #FFD700 0%, #FF8C00 100%);
         color: white;
         padding: 2rem;
-        border-radius: 20px;
+        border-radius: 30px;
         text-align: center;
         margin: 2rem 0;
-        box-shadow: 0 10px 40px rgba(102,126,234,0.4);
+        box-shadow: 0 10px 30px rgba(255, 140, 0, 0.4);
         position: relative;
-        overflow: hidden;
-    }
-    
-    .total-card::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-        animation: shimmer 3s infinite;
-    }
-    
-    @keyframes shimmer {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
+        transform: rotate(1deg);
     }
     
     .total-value {
-        font-size: 2.5rem;
-        font-weight: 800;
-        position: relative;
-        z-index: 1;
-    }
-    
-    .total-label {
-        font-size: 1rem;
-        opacity: 0.9;
-        position: relative;
-        z-index: 1;
-    }
-    
-    /* Pessoa Card */
-    .pessoa-card {
-        background: linear-gradient(145deg, rgba(40,167,69,0.1) 0%, rgba(40,167,69,0.05) 100%);
-        border: 1px solid rgba(40,167,69,0.3);
-        padding: 1.2rem;
-        border-radius: 14px;
-        margin: 10px 0;
-        transition: all 0.3s ease;
-    }
-    
-    .pessoa-card:hover {
-        transform: scale(1.02);
-        box-shadow: 0 5px 20px rgba(40,167,69,0.2);
-    }
-    
-    .pessoa-bebeu {
-        background: linear-gradient(145deg, rgba(255,193,7,0.1) 0%, rgba(255,193,7,0.05) 100%);
-        border-color: rgba(255,193,7,0.3);
-    }
-    
-    .pessoa-bebeu:hover {
-        box-shadow: 0 5px 20px rgba(255,193,7,0.2);
-    }
-    
-    .pessoa-nome {
-        font-size: 1.1rem;
-        font-weight: 600;
-        color: #fff;
-        margin-bottom: 5px;
-    }
-    
-    .pessoa-valor {
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: #38ef7d;
-    }
-    
-    .pessoa-bebeu .pessoa-valor {
-        color: #ffc107;
-    }
-    
-    /* WhatsApp Message */
-    .whatsapp-msg {
-        background: linear-gradient(145deg, #dcf8c6 0%, #c5e8b5 100%);
-        color: #1a1a1a;
-        padding: 1.2rem;
-        border-radius: 16px 16px 16px 4px;
-        font-family: 'Segoe UI', system-ui, sans-serif;
-        margin: 1rem 0;
-        white-space: pre-wrap;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        position: relative;
-    }
-    
-    .whatsapp-msg::before {
-        content: '💬';
-        position: absolute;
-        top: -10px;
-        left: -10px;
-        font-size: 1.5rem;
-    }
-    
-    /* QR Code Container */
-    .qrcode-container {
-        background: white;
-        padding: 1.5rem;
-        border-radius: 16px;
-        text-align: center;
-        box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-    }
-    
-    /* Template Cards */
-    .template-card {
-        background: linear-gradient(145deg, rgba(50,50,80,0.8) 0%, rgba(30,30,50,0.9) 100%);
-        border: 1px solid rgba(255,255,255,0.1);
-        border-radius: 16px;
-        padding: 1.5rem;
-        margin: 0.5rem;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        text-align: center;
-    }
-    
-    .template-card:hover {
-        border-color: #ff6b35;
-        transform: translateY(-5px);
-        box-shadow: 0 10px 30px rgba(255,107,53,0.2);
-    }
-    
-    .template-icon {
         font-size: 3rem;
-        margin-bottom: 0.5rem;
+        font-family: 'Fredoka', sans-serif;
+        text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
     }
     
-    .template-name {
-        font-weight: 600;
-        color: #fff;
-        font-size: 1.1rem;
-    }
-    
-    .template-desc {
-        color: #a0a0a0;
-        font-size: 0.85rem;
-        margin-top: 0.5rem;
-    }
-    
-    /* Metrics */
-    .metric-card {
-        background: rgba(255,255,255,0.05);
-        border: 1px solid rgba(255,255,255,0.1);
-        border-radius: 12px;
-        padding: 1rem;
-        text-align: center;
-    }
-    
-    .metric-value {
-        font-size: 1.8rem;
-        font-weight: 700;
-        color: #ff6b35;
-    }
-    
-    .metric-label {
-        font-size: 0.85rem;
-        color: #a0a0a0;
-        margin-top: 0.3rem;
-    }
-    
-    /* Buttons Override */
+    /* Botões Pílula */
     .stButton > button {
-        background: linear-gradient(90deg, #ff6b35 0%, #ff9a00 100%) !important;
-        color: white !important;
-        border: none !important;
-        border-radius: 12px !important;
-        padding: 0.75rem 2rem !important;
+        background: #fff !important;
+        color: #FF512F !important;
+        border: 2px solid #fff !important;
+        border-radius: 50px !important;
+        padding: 0.8rem 2rem !important;
+        font-family: 'Fredoka', sans-serif !important;
+        font-size: 1.1rem !important;
         font-weight: 600 !important;
-        transition: all 0.3s ease !important;
-        box-shadow: 0 4px 15px rgba(255,107,53,0.3) !important;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2) !important;
+        transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55) !important;
     }
     
     .stButton > button:hover {
-        transform: translateY(-2px) !important;
-        box-shadow: 0 6px 20px rgba(255,107,53,0.4) !important;
+        background: #FF512F !important;
+        color: white !important;
+        transform: scale(1.05) !important;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.3) !important;
+    }
+
+    /* Input Fields Brancos e Redondos */
+    .stTextInput > div > div > input,
+    .stTextArea > div > div > textarea,
+    .stNumberInput > div > div > input {
+        background: rgba(255, 255, 255, 0.9) !important;
+        border: none !important;
+        border-radius: 15px !important;
+        color: #333 !important;
+        padding: 15px !important;
+        box-shadow: inset 0 2px 5px rgba(0,0,0,0.05) !important;
     }
     
-    /* Tabs Override */
+    /* Tabs Divertidas */
     .stTabs [data-baseweb="tab-list"] {
-        gap: 8px;
-        background: rgba(255,255,255,0.05);
-        padding: 8px;
-        border-radius: 12px;
+        gap: 15px;
+        background: rgba(255,255,255,0.2);
+        padding: 10px;
+        border-radius: 50px;
+        justify-content: center;
     }
     
     .stTabs [data-baseweb="tab"] {
-        background: transparent;
-        border-radius: 8px;
-        color: #a0a0a0;
-        padding: 10px 20px;
+        background: rgba(255,255,255,0.3);
+        border-radius: 50px;
+        color: white;
+        padding: 10px 25px;
+        border: none;
+        font-weight: 700;
     }
     
     .stTabs [aria-selected="true"] {
-        background: linear-gradient(90deg, #ff6b35 0%, #ff9a00 100%) !important;
-        color: white !important;
+        background: white !important;
+        color: #FF512F !important;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        transform: translateY(-2px);
+    }
+
+    /* Esconde barra superior padrão */
+    header[data-testid="stHeader"] {
+        background: transparent;
     }
     
-    /* Sidebar */
-    [data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #1a1a2e 0%, #0f0f23 100%);
-        border-right: 1px solid rgba(255,255,255,0.1);
-    }
-    
-    [data-testid="stSidebar"] .stMarkdown {
-        color: #e0e0e0;
-    }
-    
-    /* Input fields */
-    .stTextInput > div > div > input,
-    .stTextArea > div > div > textarea {
-        background: rgba(255,255,255,0.05) !important;
-        border: 1px solid rgba(255,255,255,0.1) !important;
-        border-radius: 10px !important;
-        color: white !important;
-    }
-    
-    .stTextInput > div > div > input:focus,
-    .stTextArea > div > div > textarea:focus {
-        border-color: #ff6b35 !important;
-        box-shadow: 0 0 0 1px #ff6b35 !important;
-    }
-    
-    /* File uploader */
-    [data-testid="stFileUploader"] {
-        background: rgba(255,255,255,0.02);
-        border: 2px dashed rgba(255,107,53,0.3);
-        border-radius: 16px;
-        padding: 2rem;
-    }
-    
-    /* Divider */
-    hr {
-        border: none;
-        height: 1px;
-        background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%);
-        margin: 2rem 0;
-    }
-    
-    /* Footer */
-    .footer {
-        text-align: center;
-        padding: 2rem;
-        color: #666;
-        font-size: 0.9rem;
-    }
-    
-    .footer a {
-        color: #ff6b35;
-        text-decoration: none;
-    }
-    
-    /* Dicas card */
-    .dica-card {
-        background: linear-gradient(145deg, rgba(102,126,234,0.1) 0%, rgba(118,75,162,0.1) 100%);
-        border: 1px solid rgba(102,126,234,0.2);
-        border-radius: 12px;
+    /* Ajuste de métricas */
+    .metric-card {
+        background: white;
+        border-radius: 20px;
         padding: 1rem;
-        margin: 0.5rem 0;
+        text-align: center;
+        color: #333;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
-    
-    .dica-card::before {
-        content: '💡';
-        margin-right: 8px;
+    .metric-value {
+        color: #FF512F;
+        font-family: 'Fredoka', sans-serif;
     }
 </style>
 """, unsafe_allow_html=True)
