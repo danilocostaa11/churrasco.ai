@@ -15,210 +15,221 @@ st.set_page_config(
 )
 
 # ============================================
-# CSS VIBE CODING - DESIGN DIVERTIDO
+# CSS DARK PREMIUM - STEAKHOUSE MODERNA
 # ============================================
 st.markdown("""
 <style>
-    /* Importando Fontes Divertidas */
-    @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;600&family=Nunito:wght@400;700&display=swap');
+    /* Fontes: Oswald (Títulos) e Inter (Corpo) */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Oswald:wght@400;500;700&display=swap');
 
-    /* Reset e Fundo */
+    /* Geral */
     .stApp {
-        background: linear-gradient(-45deg, #FF512F, #DD2476, #FF9966);
-        background-size: 400% 400%;
-        animation: gradientBG 15s ease infinite;
-        font-family: 'Nunito', sans-serif;
+        background-color: #0E1117;
+        font-family: 'Inter', sans-serif;
     }
     
-    @keyframes gradientBG {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
+    h1, h2, h3, h4, .main-title, .categoria-header, .metric-value {
+        font-family: 'Oswald', sans-serif !important;
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
-    
-    /* Títulos e Headers */
-    h1, h2, h3, h4, .main-title, .categoria-header {
-        font-family: 'Fredoka', sans-serif !important;
-    }
-    
-    /* Header Principal Flutuante */
+
+    /* Header Principal */
     .main-header {
         text-align: center;
-        padding: 2rem;
-        background: rgba(255, 255, 255, 0.25);
-        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-        backdrop-filter: blur(8.5px);
-        -webkit-backdrop-filter: blur(8.5px);
-        border-radius: 30px;
+        padding: 3rem 1rem;
+        background: radial-gradient(circle at center, #1E1E1E 0%, #0E1117 100%);
+        border-bottom: 2px solid #262730;
         margin-bottom: 2rem;
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        transform: rotate(-1deg);
-        transition: transform 0.3s ease;
-    }
-    
-    .main-header:hover {
-        transform: rotate(1deg) scale(1.02);
     }
     
     .main-title {
-        font-size: 3.8rem;
-        color: #fff;
-        text-shadow: 4px 4px 0px #FF512F;
-        margin-bottom: 0;
+        font-size: 4rem;
+        font-weight: 700;
+        color: #FF4B4B;
+        margin: 0;
+        text-shadow: 0 0 20px rgba(255, 75, 75, 0.3);
     }
     
     .subtitle {
-        color: #fff;
-        font-size: 1.3rem;
-        font-weight: 700;
-        margin-top: -10px;
-        text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+        color: #E0E0E0;
+        font-size: 1.1rem;
+        font-weight: 300;
+        margin-top: 10px;
+        letter-spacing: 2px;
+        opacity: 0.8;
     }
-    
-    /* Cards de Vidro (Glassmorphism) */
+
+    /* Cards Sólidos */
     .premium-card {
-        background: rgba(255, 255, 255, 0.9);
-        border-radius: 20px;
+        background-color: #1E1E1E;
+        border: 1px solid #333;
+        border-radius: 8px;
         padding: 1.5rem;
-        margin: 1rem 0;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        border-bottom: 5px solid #eaeaea;
-        color: #333;
-        transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        margin-bottom: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     }
     
-    .premium-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    /* Métricas */
+    .metric-card {
+        background-color: #262730;
+        border-left: 4px solid #FF4B4B;
+        border-radius: 4px;
+        padding: 1rem;
+        text-align: center;
+        transition: transform 0.2s;
     }
-    
-    /* Categorias Coloridas */
+    .metric-card:hover {
+        transform: translateY(-2px);
+        background-color: #2D2E36;
+    }
+    .metric-value {
+        font-size: 2rem;
+        color: #FFF;
+        font-weight: 500;
+    }
+    .metric-label {
+        font-size: 0.8rem;
+        color: #AAA;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    /* Categorias */
     .categoria-header {
-        background: #fff;
-        color: #FF512F;
-        padding: 10px 20px;
-        border-radius: 50px;
-        margin: 1.5rem 0 1rem 0;
-        font-weight: 600;
-        font-size: 1.3rem;
-        display: inline-block;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        transform: rotate(-2deg);
+        color: #FFAE00;
+        border-bottom: 1px solid #333;
+        padding-bottom: 5px;
+        margin: 2rem 0 1rem 0;
+        font-size: 1.4rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
     }
-    
-    /* Item List */
+
+    /* Lista de Itens */
     .item-card {
-        background: white;
-        padding: 12px 20px;
-        border-radius: 15px;
-        margin: 8px 0;
+        background-color: #15161A;
+        border: 1px solid #262730;
+        padding: 12px 16px;
+        margin: 5px 0;
+        border-radius: 4px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        border: 2px solid transparent;
-        transition: all 0.2s ease;
     }
-    
-    .item-card:hover {
-        border-color: #FF512F;
-        transform: scale(1.02);
+    .item-card span {
+        font-size: 1rem;
+        color: #EEE;
     }
-    
-    /* Total Card Fun */
+
+    /* Total Card */
     .total-card {
-        background: linear-gradient(135deg, #FFD700 0%, #FF8C00 100%);
+        background: #FF4B4B;
         color: white;
         padding: 2rem;
-        border-radius: 30px;
         text-align: center;
-        margin: 2rem 0;
-        box-shadow: 0 10px 30px rgba(255, 140, 0, 0.4);
-        position: relative;
-        transform: rotate(1deg);
+        margin-top: 2rem;
+        border-radius: 0;
+        clip-path: polygon(0 0, 100% 0, 100% 85%, 95% 100%, 0 100%);
     }
-    
+    .total-label {
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        opacity: 0.9;
+    }
     .total-value {
-        font-size: 3rem;
-        font-family: 'Fredoka', sans-serif;
-        text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
-    }
-    
-    /* Botões Pílula */
-    .stButton > button {
-        background: #fff !important;
-        color: #FF512F !important;
-        border: 2px solid #fff !important;
-        border-radius: 50px !important;
-        padding: 0.8rem 2rem !important;
-        font-family: 'Fredoka', sans-serif !important;
-        font-size: 1.1rem !important;
-        font-weight: 600 !important;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.2) !important;
-        transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55) !important;
-    }
-    
-    .stButton > button:hover {
-        background: #FF512F !important;
-        color: white !important;
-        transform: scale(1.05) !important;
-        box-shadow: 0 8px 25px rgba(0,0,0,0.3) !important;
-    }
-
-    /* Input Fields Brancos e Redondos */
-    .stTextInput > div > div > input,
-    .stTextArea > div > div > textarea,
-    .stNumberInput > div > div > input {
-        background: rgba(255, 255, 255, 0.9) !important;
-        border: none !important;
-        border-radius: 15px !important;
-        color: #333 !important;
-        padding: 15px !important;
-        box-shadow: inset 0 2px 5px rgba(0,0,0,0.05) !important;
-    }
-    
-    /* Tabs Divertidas */
-    .stTabs [data-baseweb="tab-list"] {
-        gap: 15px;
-        background: rgba(255,255,255,0.2);
-        padding: 10px;
-        border-radius: 50px;
-        justify-content: center;
-    }
-    
-    .stTabs [data-baseweb="tab"] {
-        background: rgba(255,255,255,0.3);
-        border-radius: 50px;
-        color: white;
-        padding: 10px 25px;
-        border: none;
+        font-size: 3.5rem;
         font-weight: 700;
     }
-    
-    .stTabs [aria-selected="true"] {
-        background: white !important;
-        color: #FF512F !important;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        transform: translateY(-2px);
+
+    /* Inputs */
+    .stTextInput input, .stTextArea textarea, .stNumberInput input {
+        background-color: #0E1117 !important;
+        border: 1px solid #333 !important;
+        color: white !important;
+        border-radius: 4px !important;
+    }
+    .stTextInput input:focus, .stTextArea textarea:focus {
+        border-color: #FF4B4B !important;
+        box-shadow: none !important;
     }
 
-    /* Esconde barra superior padrão */
-    header[data-testid="stHeader"] {
-        background: transparent;
+    /* Botões */
+    .stButton > button {
+        background-color: #FF4B4B !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 4px !important;
+        font-family: 'Oswald', sans-serif !important;
+        text-transform: uppercase !important;
+        letter-spacing: 1px !important;
+        font-weight: 500 !important;
+        padding: 0.6rem 1.5rem !important;
+        transition: all 0.2s !important;
+    }
+    .stButton > button:hover {
+        background-color: #D43939 !important;
+        color: white !important;
+    }
+
+    /* Tabs */
+    .stTabs [data-baseweb="tab-list"] {
+        background-color: transparent;
+        border-bottom: 2px solid #333;
+        gap: 2rem;
+    }
+    .stTabs [data-baseweb="tab"] {
+        background-color: transparent;
+        color: #777;
+        font-family: 'Oswald', sans-serif;
+        font-size: 1.1rem;
+        padding: 10px 0;
+        border: none;
+    }
+    .stTabs [aria-selected="true"] {
+        background-color: transparent !important;
+        color: #FF4B4B !important;
+        border-bottom: 3px solid #FF4B4B;
+    }
+
+    /* Sidebar */
+    [data-testid="stSidebar"] {
+        background-color: #0E1117;
+        border-right: 1px solid #262730;
+    }
+
+    /* Upload */
+    [data-testid="stFileUploader"] {
+        border: 1px dashed #444;
+        background-color: #15161A;
+        padding: 2rem;
+    }
+
+    /* Dividers */
+    hr {
+        border-color: #333;
     }
     
-    /* Ajuste de métricas */
-    .metric-card {
-        background: white;
-        border-radius: 20px;
+    /* WhatsApp Msg */
+    .whatsapp-msg {
+        background-color: #121212;
+        border-left: 3px solid #00E676;
+        color: #eee;
         padding: 1rem;
-        text-align: center;
-        color: #333;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        font-family: monospace;
+        margin-top: 1rem;
+        border-radius: 0 8px 8px 0;
     }
-    .metric-value {
-        color: #FF512F;
-        font-family: 'Fredoka', sans-serif;
+    
+    .dica-card {
+        background-color: #262730;
+        padding: 10px;
+        margin: 5px 0;
+        border-radius: 4px;
+        border-left: 3px solid #FFAE00;
+        font-size: 0.9rem;
     }
 </style>
 """, unsafe_allow_html=True)
