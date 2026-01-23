@@ -721,6 +721,7 @@ with tab2:
                     if st.button("📩 Cobrança Normal", use_container_width=True):
                         with st.spinner("Gerando mensagem..."):
                             try:
+                                from utils import gerar_cobranca_whatsapp
                                 msg = gerar_cobranca_whatsapp(
                                     pessoa_cobrar,
                                     div['divisao'][pessoa_cobrar],
