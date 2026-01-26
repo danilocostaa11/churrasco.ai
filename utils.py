@@ -4,8 +4,13 @@ import json
 import io
 import hashlib
 from datetime import datetime
-from openai import OpenAI
 from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception
+
+# OpenAI é opcional para permitir que o app suba mesmo sem a lib instalada
+try:
+    from openai import OpenAI  # type: ignore
+except ImportError:  # pragma: no cover
+    OpenAI = None  # type: ignore[assignment]
 
 # Tentar importar qrcode, se não existir, criar fallback
 try:
@@ -17,6 +22,12 @@ except ImportError:
 
 def get_openai_client():
     """Obtém cliente OpenAI com fallback para diferentes fontes de API key."""
+    if OpenAI is None:
+        raise ImportError(
+            "Pacote 'openai' não instalado. Instale com `pip install -r requirements.txt` "
+            "ou `uv sync` antes de usar as funções de IA."
+        )
+
     # Primeiro, tenta chave customizada do usuário
     custom_key = os.environ.get("CUSTOM_OPENAI_API_KEY")
     if custom_key:
