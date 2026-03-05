@@ -237,6 +237,92 @@ st.markdown("""
         border-left: 3px solid #FFAE00;
         font-size: 0.9rem;
     }
+
+    /* Category header color variants */
+    .categoria-header-blue {
+        color: #4FC3F7;
+        border-bottom-color: #4FC3F7;
+    }
+    .categoria-header-green {
+        color: #66BB6A;
+        border-bottom-color: #66BB6A;
+    }
+
+    /* Person cards in bill division */
+    .pessoa-card {
+        background-color: #1E1E1E;
+        border: 1px solid #333;
+        border-radius: 8px;
+        padding: 1rem;
+        text-align: center;
+        margin-bottom: 0.5rem;
+    }
+    .pessoa-card.pessoa-bebeu {
+        border-color: #FFAE00;
+    }
+    .pessoa-nome {
+        font-size: 1rem;
+        color: #EEE;
+        margin-bottom: 0.4rem;
+    }
+    .pessoa-valor {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: #FF4B4B;
+        font-family: 'Oswald', sans-serif;
+    }
+
+    /* QR code container */
+    .qrcode-container {
+        display: flex;
+        justify-content: center;
+        padding: 1rem;
+        background-color: #1E1E1E;
+        border-radius: 8px;
+    }
+
+    /* Template cards */
+    .template-card {
+        background-color: #1E1E1E;
+        border: 1px solid #333;
+        border-radius: 8px;
+        padding: 1.2rem;
+        text-align: center;
+        margin-bottom: 0.5rem;
+        transition: border-color 0.2s;
+    }
+    .template-card:hover {
+        border-color: #FF4B4B;
+    }
+    .template-icon {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+    }
+    .template-name {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #EEE;
+        margin-bottom: 0.4rem;
+        font-family: 'Oswald', sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    .template-desc {
+        font-size: 0.8rem;
+        color: #AAA;
+    }
+
+    /* Footer */
+    .footer {
+        text-align: center;
+        color: #555;
+        font-size: 0.85rem;
+        padding: 1rem 0;
+    }
+    .footer a {
+        color: #FF4B4B;
+        text-decoration: none;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -407,6 +493,9 @@ with tab1:
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
         calcular_btn = st.button("🤖 Calcular com IA", use_container_width=True, type="primary")
+    
+    if calcular_btn and not descricao.strip():
+        st.warning("⚠️ Descreva o churrasco antes de calcular!")
     
     if calcular_btn and descricao.strip():
         with st.spinner("🥩 Consultando o Mestre do Churrasco..."):
@@ -625,11 +714,12 @@ with tab2:
         # Métricas
         col1, col2, col3 = st.columns(3)
         with col1:
-            st.metric("💰 Total Geral", f"R$ {nota.get('total_nota', sum(i['preco'] for i in nota['itens'])):.2f}")
+            total_nota = nota.get('total_nota') or sum(i.get('preco', 0) for i in nota['itens'])
+            st.metric("💰 Total Geral", f"R$ {total_nota:.2f}")
         with col2:
-            st.metric("🍺 Alcoólicos", f"R$ {nota.get('total_alcoolico', 0):.2f}")
+            st.metric("🍺 Alcoólicos", f"R$ {nota.get('total_alcoolico') or 0:.2f}")
         with col3:
-            st.metric("🥤 Não-alcoólicos", f"R$ {nota.get('total_nao_alcoolico', 0):.2f}")
+            st.metric("🥤 Não-alcoólicos", f"R$ {nota.get('total_nao_alcoolico') or 0:.2f}")
         
         st.markdown("---")
         st.markdown("### 👥 Quem participou do rolê?")
