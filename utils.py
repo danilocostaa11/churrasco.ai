@@ -202,14 +202,16 @@ def calcular_divisao(itens: list, participantes: list, quem_bebeu: list) -> dict
         return {"erro": "Nenhum participante informado"}
     
     valor_base = total_nao_alcoolico / num_participantes
-    valor_alcool_por_pessoa = total_alcoolico / num_bebedores if num_bebedores > 0 else 0
+    valor_alcool_por_pessoa = total_alcoolico / num_bebedores if num_bebedores > 0 else total_alcoolico / num_participantes
     
     divisao = {}
     for pessoa in participantes:
-        if pessoa in quem_bebeu:
-            divisao[pessoa] = round(valor_base + valor_alcool_por_pessoa, 2)
+        if num_bebedores > 0:
+            valor_pessoa = valor_base + valor_alcool_por_pessoa if pessoa in quem_bebeu else valor_base
         else:
-            divisao[pessoa] = round(valor_base, 2)
+            # Nobody marked as drinker: split everything equally
+            valor_pessoa = valor_base + valor_alcool_por_pessoa
+        divisao[pessoa] = round(valor_pessoa, 2)
     
     return {
         "total_geral": round(total_geral, 2),
